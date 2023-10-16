@@ -26,6 +26,7 @@ async function sendReply(message) {
   await nextTick()
   renderComponent.value = true
 
+  await nextTick()
   bottom.value?.scrollIntoView({ behavior: 'smooth' })
 }
 
