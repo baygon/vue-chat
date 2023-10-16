@@ -1,9 +1,17 @@
 <script setup>
-import HelloWorld from '../components/HelloWorld.vue'
+import ChatWindow from '../components/ChatWindow.vue'
 </script>
 
 <template>
   <main>
-    <HelloWorld msg="Hello" />
+    <ChatWindow />
   </main>
 </template>
+
+<style scoped>
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
