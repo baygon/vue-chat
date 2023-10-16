@@ -1,18 +1,15 @@
 <script setup>
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, reactive } from 'vue'
 import ChatBubble from './ChatBubble.vue'
 import ChatInput from './ChatInput.vue'
 
 import { currentUser, conversation } from '../api/mockapi'
 
 const currentUserObj = JSON.parse(currentUser)
-const conversationObj = JSON.parse(conversation)
-const renderComponent = ref(true)
+const conversationObj = reactive(JSON.parse(conversation))
 
 async function sendReply(message) {
   if (!message) return
-
-  renderComponent.value = false
 
   const messageObj = {
     id: conversationObj.length + 1,
@@ -22,11 +19,8 @@ async function sendReply(message) {
   }
   conversationObj.push(messageObj)
 
-  // not sure why this isn't re-rendering without v-if hack. haven't used vue in a while
   await nextTick()
-  renderComponent.value = true
 
-  await nextTick()
   bottom.value?.scrollIntoView({ behavior: 'smooth' })
 }
 
@@ -35,7 +29,7 @@ const bottom = ref(null)
 
 <template>
   <div class="wrapper">
-    <div class="window" v-if="renderComponent">
+    <div class="window">
       <ChatBubble
         v-for="{ id, message, from } in conversationObj"
         :key="id"
